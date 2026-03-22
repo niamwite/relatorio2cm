@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório - Sistema WhatsApp Disparos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #24243e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #25D366;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(180deg, #25D366, #128C7E);
+            border-radius: 2px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        .status-planning {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+        }
+
+        .roadmap {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #25D366, #128C7E);
+        }
+
+        .roadmap-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #25D366;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .roadmap-phase {
+            font-size: 0.9em;
+            color: #25D366;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roadmap-content {
+            font-size: 1.05em;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid #25D366;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: #128C7E;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature-desc {
+            font-size: 0.95em;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.3), rgba(18, 140, 126, 0.3));
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.2), rgba(18, 140, 126, 0.2));
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #25D366;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(18, 140, 126, 0.1));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            margin: 30px 0;
+        }
+
+        .highlight-box h3 {
+            color: #25D366;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            margin: 30px 0;
+        }
+
+        .warning-box h3 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+        }
+
+        a {
+            color: #25D366;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #128C7E;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background: rgba(37, 211, 102, 0.2);
+            border-radius: 10px;
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(37, 211, 102, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .architecture-diagram {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .architecture-step {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 3px solid #25D366;
+        }
+
+        .architecture-step h4 {
+            color: #25D366;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📱 Sistema WhatsApp Disparos</h1>
+            <p class="subtitle">Automação de Marketing e Comunicação</p>
+        </header>
+
+        <div class="content">
+            <a href="index.html" class="back-link">← Voltar ao Dashboard</a>
+
+            <!-- Status -->
+            <div style="text-align: center; margin: 40px 0;">
+                <span class="status-badge status-planning">📋 Status: Planejamento - Início Previsto Q2 2026</span>
+            </div>
+
+            <!-- Visão Geral -->
+            <section class="section">
+                <h2>📊 Visão Geral</h2>
+                <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">
+                    Sistema automatizado de disparos de WhatsApp para marketing, comunicação com leads
+                    e relacionamento com clientes. Integração com API oficial do WhatsApp Business
+                    para envio massivo com compliance e taxas de entrega otimizadas.
+                </p>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">0%</div>
+                        <div class="metric-label">Iniciado</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">Q2</div>
+                        <div class="metric-label">Início Previsto</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Fases Planejadas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">60</div>
+                        <div class="metric-label">Dias Estimados</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Aviso Legal -->
+            <div class="warning-box">
+                <h3>⚠️ Compliance e LGPD</h3>
+                <p style="line-height: 1.8; margin-top: 15px;">
+                    <strong>Importante:</strong> Este sistema será desenvolvido seguindo rigorosamente as diretrizes
+                    da LGPD (Lei Geral de Proteção de Dados) e os Termos de Uso do WhatsApp Business.
+                    Apenas contatos que explicitamente opt-in receberão mensagens. Sistema de descadastro
+                    rápido e fácil será implementado. Base de contatos será segmentada e personalizada.
+                </p>
+            </div>
+
+            <!-- Funcionalidades -->
+            <section class="section">
+                <h2>✨ Funcionalidades Principais</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">📤 Envio em Massa</div>
+                        <div class="feature-desc">
+                            Disparos em lote com controle de velocidade para evitar bloqueios,
+                            personalização de mensagens e suporte a mídia (imagens, vídeos, documentos).
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📋 Gestão de Contatos</div>
+                        <div class="feature-desc">
+                            Importação de leads, segmentação por tags, histórico de interações,
+                            status de engajamento e sistema de opt-in/opt-out.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🎯 Personalização</div>
+                        <div class="feature-desc">
+                            Templates de mensagem dinâmicos com merge fields (nome, empresa, etc.),
+                            variações de conteúdo e A/B testing de mensagens.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📊 Analytics</div>
+                        <div class="feature-desc">
+                            Taxas de entrega, leitura e resposta. Métricas de engajamento,
+                            relatórios de campanhas e dashboards em tempo real.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">⏰ Agendamento</div>
+                        <div class="feature-desc">
+                            Agendamento de envios para horários otimizados,
+                            campanhas recorrentes e gatilhos automáticos.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🤖 Automação</div>
+                        <div class="feature-desc">
+                            Chatbots básicos, respostas automáticas, triagem de leads
+                            e integração com CRM para follow-up automático.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Arquitetura -->
+            <section class="section">
+                <h2>🏗️ Arquitetura do Sistema</h2>
+
+                <div class="architecture-diagram">
+                    <h3 style="color: #25D366; margin-bottom: 20px; font-size: 1.5em;">Fluxo de Dados</h3>
+
+                    <div class="architecture-step">
+                        <h4>1. Fonte de Dados</h4>
+                        <p style="margin-top: 10px; opacity: 0.9;">
+                            Integração com <strong>Leads Pro CNPJ</strong> para importação de leads qualificados,
+                            planilhas CSV/Excel, API de CRM e manual entry.
+                        </p>
+                    </div>
+
+                    <div class="architecture-step">
+                        <h4>2. Processamento</h4>
+                        <p style="margin-top: 10px; opacity: 0.9;">
+                            Node.js/Python backend para validação de números, verificação de opt-in,
+                            limpeza de duplicatas e segmentação de audiência.
+                        </p>
+                    </div>
+
+                    <div class="architecture-step">
+                        <h4>3. API WhatsApp Business</h4>
+                        <p style="margin-top: 10px; opacity: 0.9;">
+                            Integração oficial via WhatsApp Business API (Meta for Developers)
+                            com webhook para confirmações de entrega e leitura.
+                        </p>
+                    </div>
+
+                    <div class="architecture-step">
+                        <h4>4. Dashboard de Controle</h4>
+                        <p style="margin-top: 10px; opacity: 0.9;">
+                            Interface web em React/Next.js para criar campanhas, monitorar progresso,
+                            visualizar métricas e gerenciar contatos em tempo real.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 style="color: #25D366; margin: 40px 0 20px; font-size: 1.5em;">Stack Tecnológico</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">Next.js</span>
+                    <span class="tech-badge">WhatsApp Business API</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">Bull Queue</span>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section class="section">
+                <h2>📅 Roadmap de Implementação</h2>
+
+                <div class="roadmap">
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 1 - Setup e API (Semana 1-2)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Criação de conta WhatsApp Business</li>
+                                <li> ✓ Configuração de Meta for Developers</li>
+                                <li> ✓ Setup de webhook e autenticação</li>
+                                <li> ✓ Testes de envio e recebimento</li>
+                                <li> ✓ Estruturação do banco de dados</li>
+                                <li> ✓ Implementação de fila de processamento</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 2 - Core Features (Semana 3-4)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Sistema de importação de contatos</li>
+                                <li> ✓ Validação e limpeza de números</li>
+                                <li> ✓ Interface de criação de campanhas</li>
+                                <li> ✓ Editor de templates de mensagem</li>
+                                <li> ✓ Sistema de opt-in/opt-out</li>
+                                <li> ✓ Controle de velocidade de envio</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 3 - Analytics e Dashboards (Semana 5-6)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Tracking de entregas e leituras</li>
+                                <li> ✓ Dashboard de métricas em tempo real</li>
+                                <li> ✓ Relatórios de performance de campanhas</li>
+                                <li> ✓ Exportação de dados e analytics</li>
+                                <li> ✓ Sistema de alertas e notificações</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 4 - Automação e Inteligência (Semana 7-8)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Sistema de agendamento de campanhas</li>
+                                <li> ✓ Chatbots básicos e respostas automáticas</li>
+                                <li> ✓ Integração com Leads Pro CNPJ</li>
+                                <li> ✓ Segmentação avançada de audiência</li>
+                                <li> ✓ A/B testing de mensagens</li>
+                                <li> ✓ Otimização de horários de envio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Casos de Uso -->
+            <section class="section">
+                <h2>🎯 Casos de Uso</h2>
+
+                <div class="highlight-box">
+                    <h3>💼 B2B - Divulgação de Serviços</h3>
+                    <p style="line-height: 1.8; margin-top: 15px;">
+                        Utilizar base do <strong>Leads Pro CNPJ</strong> para contatar empresas do setor de varejo
+                        e cosméticos, apresentando portfólio e serviços de desenvolvimento. Segmentação
+                        por CNAE, localização e porte da empresa.
+                    </p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>📅 Follow-up de Clientes</h3>
+                    <p style="line-height: 1.8; margin-top: 15px;">
+                        Sistema de follow-up automático para leads em diferentes estágios do funil.
+                        Mensagens personalizadas baseadas em interações anteriores e status do cliente.
+                    </p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>📢 Comunicados e Atualizações</h3>
+                    <p style="line-height: 1.8; margin-top: 15px;">
+                        Envio de atualizações sobre novos projetos, cases de sucesso e conteúdo relevante
+                        para networking e manutenção de relacionamento com contatos profissionais.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Métricas de Sucesso -->
+            <section class="section">
+                <h2>📈 Métricas de Sucesso</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">✅ Taxa de Entrega</div>
+                        <div class="feature-desc">
+                            Meta: 95%+ de mensagens entregues com sucesso
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">👁️ Taxa de Leitura</div>
+                        <div class="feature-desc">
+                            Meta: 40%+ de mensagens lidas (benchmark WhatsApp)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">💬 Taxa de Resposta</div>
+                        <div class="feature-desc">
+                            Meta: 15%+ de resposts qualificadas
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">⏱️ Tempo de Resposta</div>
+                        <div class="feature-desc">
+                            Meta: Responder leads em até 5 minutos
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🎯 Conversão</div>
+                        <div class="feature-desc">
+                            Meta: 5%+ de conversão para reunião/proposta
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📊 ROI</div>
+                        <div class="feature-desc">
+                            Meta: 3x ROI em 3 meses de operação
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Integrações -->
+            <section class="section">
+                <h2>🔗 Integrações Planejadas</h2>
+                <div style="display: grid; gap: 15px; margin-top: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #25D366;">
+                        <strong>🎯 Leads Pro CNPJ:</strong> Importação automática de leads qualificados do sistema de inteligência comercial
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #25D366;">
+                        <strong>📊 FINAN:</strong> Integração com sistema financeiro para tracking de ROI por campanha
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #25D366;">
+                        <strong>🔔 Notificações:</strong> Alertas em tempo real para novas mensagens e respostas
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #25D366;">
+                        <strong>📅 Google Calendar:</strong> Agendamento automático de reuniões com leads qualificados
+                    </div>
+                </div>
+            </section>
+
+            <!-- Próximos Passos -->
+            <section class="section">
+                <h2>✅ Próximos Passos</h2>
+                <div style="background: rgba(37, 211, 102, 0.1); padding: 30px; border-radius: 16px; border-left: 4px solid #25D366; margin-top: 20px;">
+                    <ul style="line-height: 2;">
+                        <li><strong>Imediato:</strong> Estudar documentação oficial WhatsApp Business API</li>
+                        <li><strong>Semana 1:</strong> Criar conta Meta Business e verificar número</li>
+                        <li><strong>Semana 2:</strong> Implementar POC de envio via API</li>
+                        <li><strong>Semana 3:</strong> Desenvolver sistema de gerenciamento de contatos</li>
+                        <li><strong>Semana 4:</strong> Criar dashboard de controle de campanhas</li>
+                        <li><strong>Contínuo:</strong> Monitorar métricas e otimizar taxas de resposta</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3>🎯 Foco Principal</h3>
+                    <p style="line-height: 1.8;">
+                        Desenvolver sistema automatizado e compliant de comunicação via WhatsApp,
+                        integrado com base de leads qualificados do Leads Pro CNPJ, para divulgação
+                        de serviços de desenvolvimento e geração de oportunidades comerciais.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>willkoga.com</strong> - Sistema WhatsApp Disparos</p>
+            <p>Planejamento Q2 2026 • Status: Em Planejamento</p>
+            <p style="margin-top: 15px; opacity: 0.7;">
+                Automação de Marketing • WhatsApp Business API • Node.js • React
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

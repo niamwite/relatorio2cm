@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório - Estratégia LinkedIn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #24243e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #0077b5;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(180deg, #0077b5, #00a0dc);
+            border-radius: 2px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        .status-planning {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+        }
+
+        .roadmap {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #0077b5, #00a0dc);
+        }
+
+        .roadmap-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #0077b5;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .roadmap-phase {
+            font-size: 0.9em;
+            color: #0077b5;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roadmap-content {
+            font-size: 1.05em;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid #0077b5;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: #00a0dc;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature-desc {
+            font-size: 0.95em;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, rgba(0, 119, 181, 0.3), rgba(0, 160, 220, 0.3));
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 119, 181, 0.4);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(0, 119, 181, 0.2), rgba(0, 160, 220, 0.2));
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #0077b5;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 119, 181, 0.1), rgba(0, 160, 220, 0.1));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 119, 181, 0.3);
+            margin: 30px 0;
+        }
+
+        .highlight-box h3 {
+            color: #0077b5;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+        }
+
+        a {
+            color: #0077b5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00a0dc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background: rgba(0, 119, 181, 0.2);
+            border-radius: 10px;
+            color: #0077b5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 119, 181, 0.3);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 Estratégia LinkedIn</h1>
+            <p class="subtitle">Construção de Presença Profissional e Networking</p>
+        </header>
+
+        <div class="content">
+            <a href="index.html" class="back-link">← Voltar ao Dashboard</a>
+
+            <!-- Status -->
+            <div style="text-align: center; margin: 40px 0;">
+                <span class="status-badge status-planning">📋 Status: Planejamento - Início Previsto Q2 2026</span>
+            </div>
+
+            <!-- Visão Geral -->
+            <section class="section">
+                <h2>📊 Visão Geral</h2>
+                <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">
+                    Estratégia completa para construção e otimização de presença profissional no LinkedIn,
+                    focada em networking técnico, divulgação de portfólio e estabelecimento de autoridade
+                    no mercado de desenvolvimento full stack.
+                </p>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">0%</div>
+                        <div class="metric-label">Iniciado</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">Q2</div>
+                        <div class="metric-label">Início Previsto</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Fases Planejadas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">90</div>
+                        <div class="metric-label">Dias Estimados</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Objetivos -->
+            <section class="section">
+                <h2>🎯 Objetivos Principais</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">👤 Perfil Otimizado</div>
+                        <div class="feature-desc">
+                            Criação de perfil profissional completo com seo, foto profissional,
+                            headline otimizada e resumo destacando skills e experiências.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📄 Portfólio Destacado</div>
+                        <div class="feature-desc">
+                            Seção de projetos destacando os 10 sistemas desenvolvidos,
+                            com links, demonstrações e resultados quantitativos.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🌐 Networking Estratégico</div>
+                        <div class="feature-desc">
+                            Conexões com desenvolvedores, empresas de tecnologia,
+                            recrutadores e líderes tech do mercado brasileiro.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📝 Conteúdo Relevante</div>
+                        <div class="feature-desc">
+                            Publicação semanal de conteúdo técnico: artigos, tutoriais,
+                            cases de projetos e insights sobre desenvolvimento.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">💼 Recrutamento</div>
+                        <div class="feature-desc">
+                            Posicionamento para oportunidades de trabalho,
+                            visibilidade para recrutadores e destacamento no mercado.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🏆 Autoridade Técnica</div>
+                        <div class="feature-desc">
+                            Estabelecimento como referência em React, Next.js,
+                            Python e automação, com recomendações e endossos.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section class="section">
+                <h2>📅 Roadmap de Implementação</h2>
+
+                <div class="roadmap">
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 1 - Setup Inicial (Semana 1-2)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Criação/otimização de perfil profissional</li>
+                                <li> ✓ Upload de foto profissional</li>
+                                <li> ✓ Escrita de headline e summary otimizados</li>
+                                <li> ✓ Configuração de URL personalizada</li>
+                                <li> ✓ Preenchimento completo de experiências</li>
+                                <li> ✓ Adição de skills técnicas principais</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 2 - Portfólio e Projetos (Semana 3-4)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Criação de seção de projetos em destaque</li>
+                                <li> ✓ Documentação dos 10 sistemas desenvolvidos</li>
+                                <li> ✓ Adição de links para GitHub e demos</li>
+                                <li> ✓ Upload de capturas de tela e vídeos</li>
+                                <li> ✓ Descrição detalhada de stacks e tecnologias</li>
+                                <li> ✓ Métricas e resultados de cada projeto</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-phase">Fase 3 - Networking e Conteúdo (Semana 5-12)</div>
+                        <div class="roadmap-content">
+                            <ul style="line-height: 2; margin-top: 10px;">
+                                <li> ✓ Conexões estratégicas (500+ conexões)</li>
+                                <li> ✓ Participação em grupos tech</li>
+                                <li> ✓ 2-3 posts por semana sobre desenvolvimento</li>
+                                <li> ✓ Interação com conteúdo de outros devs</li>
+                                <li> ✓ Solicitação de recomendações</li>
+                                <li> ✓ Engajamento em discussões técnicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Estratégia de Conteúdo -->
+            <section class="section">
+                <h2>📝 Estratégia de Conteúdo</h2>
+
+                <div class="highlight-box">
+                    <h3>📅 Calendário Editorial Semanal</h3>
+                    <div style="line-height: 2; margin-top: 20px;">
+                        <p><strong>Segunda-feira:</strong> Artigo técnico (React, Next.js, Python)</p>
+                        <p><strong>Quarta-feira:</strong> Case de projeto ou tutorial prático</p>
+                        <p><strong>Sexta-feira:</strong> Insight sobre carreira ou mercado tech</p>
+                    </div>
+                </div>
+
+                <h3 style="color: #0077b5; margin: 30px 0 20px; font-size: 1.5em;">Temas Principais</h3>
+                <div style="display: grid; gap: 15px; margin-top: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #0077b5;">
+                        <strong>🚀 Desenvolvimento Full Stack:</strong> React, Next.js, Node.js, arquitetura de sistemas
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #0077b5;">
+                        <strong>🤖 Automação e Python:</strong> Scripts, automação de processos, DuckDB, Streamlit
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #0077b5;">
+                        <strong>💼 Cases de Projetos:</strong> Demonstrações práticas dos 10 sistemas desenvolvidos
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #0077b5;">
+                        <strong>📊 Dashboards e Visualização:</strong> Power BI, Supabase, análise de dados
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; border-left: 3px solid #0077b5;">
+                        <strong>🎓 Carreira Tech:</strong> Experiências, aprendizados, dicas para devs
+                    </div>
+                </div>
+            </section>
+
+            <!-- Métricas de Sucesso -->
+            <section class="section">
+                <h2>📈 Métricas de Sucesso</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">👥 Conexões</div>
+                        <div class="feature-desc">
+                            Meta: 500+ conexões relevantes (desenvolvedores, recrutadores, empresas tech)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">👁️ Visualizações</div>
+                        <div class="feature-desc">
+                            Meta: 1.000+ visualizações de perfil por mês
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">💡 Engajamento</div>
+                        <div class="feature-desc">
+                            Meta: 100+ reações e 20+ comentários por post
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">📨 Contatos</div>
+                        <div class="feature-desc">
+                            Meta: 10+ mensagens de recrutadores por mês
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">⭐ Recomendações</div>
+                        <div class="feature-desc">
+                            Meta: 10+ recomendações de colegas e ex-colegas
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-title">🔍 Busca</div>
+                        <div class="feature-desc">
+                            Meta: Aparecer nas primeiras posições para "Full Stack Developer"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Próximos Passos -->
+            <section class="section">
+                <h2>✅ Próximos Passos</h2>
+                <div style="background: rgba(0, 119, 181, 0.1); padding: 30px; border-radius: 16px; border-left: 4px solid #0077b5; margin-top: 20px;">
+                    <ul style="line-height: 2;">
+                        <li><strong>Imediato:</strong> Agendar sessão de fotos profissionais</li>
+                        <li><strong>Semana 1:</strong> Criar checklist completo de otimização de perfil</li>
+                        <li><strong>Semana 2:</strong> Escrever e revisar headline e summary</li>
+                        <li><strong>Semana 3:</strong> Documentar todos os 10 projetos para portfólio</li>
+                        <li><strong>Semana 4:</strong> Configurar sistema de agendamento de posts</li>
+                        <li><strong>Contínuo:</strong> Monitorar métricas e ajustar estratégia</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3>🎯 Foco Principal</h3>
+                    <p style="line-height: 1.8;">
+                        Construir uma presença digital profissional que destaque a experiência técnica
+                        em desenvolvimento full stack, automação e gestão de projetos, posicionando
+                        como referência no mercado brasileiro de desenvolvimento de software.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>willkoga.com</strong> - Estratégia LinkedIn</p>
+            <p>Planejamento Q2 2026 • Status: Em Planejamento</p>
+            <p style="margin-top: 15px; opacity: 0.7;">
+                Full Stack Developer | React | Next.js | Python | Automação
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
